@@ -1,1 +1,1 @@
-# MoneyExchangeProject
+# Money Exchange project
