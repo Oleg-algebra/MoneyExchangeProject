@@ -31,6 +31,21 @@ object RepositoryImpl: Repository {
                 id = ++currencyID
             )
         )
+
+        currenciesList.add(
+            Currency(
+                "CAD",
+                1.0,
+                id = ++currencyID
+            )
+        )
+        currenciesList.add(
+            Currency(
+                "FRH",
+                1.0,
+                id = ++currencyID
+            )
+        )
     }
 
     override fun addCurrency(currency: Currency) {
