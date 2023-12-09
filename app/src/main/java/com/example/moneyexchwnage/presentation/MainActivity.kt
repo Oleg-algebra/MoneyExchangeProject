@@ -4,16 +4,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import androidx.lifecycle.ViewModelProvider
 import com.example.moneyexchwnage.R
-import com.example.moneyexchwnage.data.PairsRepositoryImpl
-import com.example.moneyexchwnage.domain.CurrencyPair
-import com.example.moneyexchwnage.domain.usecases.GetAllPairs
-import com.example.moneyexchwnage.domain.usecases.RemoveCurrencyPair
+import com.example.moneyexchwnage.domain.Currency
 
 class MainActivity : AppCompatActivity() {
     private lateinit var showButton: Button
     private lateinit var removeButton: Button
-    lateinit var pair: CurrencyPair
+    private lateinit var viewModel: MainViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -21,22 +19,18 @@ class MainActivity : AppCompatActivity() {
         showButton = findViewById(R.id.showButton)
         removeButton = findViewById(R.id.removeButton)
 
-        val repo = PairsRepositoryImpl()
-        val getALL = GetAllPairs(repo)
-        val removeCase = RemoveCurrencyPair(repo)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        viewModel.liveData.observe(this){
+            Log.d(TAG, "onCreate: curency list: $it")
+        }
 
         showButton.setOnClickListener {
-            Log.d(TAG, "Pairs: ${getALL.getAllPairs()}")
+            viewModel.getCurrencyList()
+            Log.d(TAG, "showButton click:  ")
         }
 
         removeButton.setOnClickListener {
-            if(repo.pairs.isNotEmpty()){
-                pair = repo.pairs[0]
-                removeCase.removePair(pair)
-                Log.d(TAG, "Pair removed")
-            }else{
-                Log.d(TAG, "No pairs. No remove.")
-            }
+
 
         }
 

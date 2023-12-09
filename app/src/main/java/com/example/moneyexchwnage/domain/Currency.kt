@@ -1,7 +1,8 @@
 package com.example.moneyexchwnage.domain
 
 data class Currency(
-    var id: Long = UNDEFINED_ID,
-    val code: String = "",
-    var isBaseCurrency: Boolean = false,
+    val cryptoCurrency: String = "",
+    val rate: Double,
+    var frequencyUpdate: Int = FREQ_UPDATE,
+    val id: Long = UNDEFINED_ID,
 )
