@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
-            Log.d(TAG, "onCreate: curency list: $it")
+            Log.d(TAG, "onCreate: currency list: $it")
         }
 
         showButton.setOnClickListener {
@@ -30,7 +30,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         removeButton.setOnClickListener {
-
+            val list = viewModel.liveData.value
+            var item: Currency? = null
+            if(list != null){
+                if(list.isNotEmpty()){
+                    item = list[0]
+                }
+            }
+            if(item != null) {
+                viewModel.removeCurrency(item)
+                Log.d(TAG, "item: $item removed")
+            }else{
+                Log.d(TAG, "Remove: nothing to remove ")
+            }
 
         }
 

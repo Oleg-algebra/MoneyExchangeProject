@@ -1,5 +1,6 @@
 package com.example.moneyexchwnage.presentation
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moneyexchwnage.data.RepositoryImpl
@@ -13,11 +14,15 @@ class MainViewModel: ViewModel() {
     private val getCurrencyListUseCase = GetCurrencyList(repo)
     private val removeCurrencyUseCase = RemoveCurrency(repo)
 
-    val liveData = MutableLiveData<List<Currency>>()
+    val liveData: LiveData<List<Currency>>
+            get() = getCurrencyListUseCase.getCurrencyList()
 
     fun getCurrencyList(){
-        val currencyList = getCurrencyListUseCase.getCurrencyList()
-        liveData.value = currencyList
+        getCurrencyListUseCase.getCurrencyList()
+    }
+
+    fun removeCurrency(currency: Currency){
+        removeCurrencyUseCase.removeCurrency(currency)
     }
 
 
