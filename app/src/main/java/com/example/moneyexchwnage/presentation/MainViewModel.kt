@@ -1,10 +1,10 @@
 package com.example.moneyexchwnage.presentation
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.moneyexchwnage.data.RepositoryImpl
 import com.example.moneyexchwnage.domain.Currency
+import com.example.moneyexchwnage.domain.TestCurrency
 import com.example.moneyexchwnage.domain.usecases.GetCurrencyList
 import com.example.moneyexchwnage.domain.usecases.RemoveCurrency
 

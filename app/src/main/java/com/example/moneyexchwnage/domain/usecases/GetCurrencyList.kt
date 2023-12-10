@@ -2,6 +2,7 @@ package com.example.moneyexchwnage.domain.usecases
 
 import androidx.lifecycle.LiveData
 import com.example.moneyexchwnage.domain.Currency
+import com.example.moneyexchwnage.domain.TestCurrency
 import com.example.moneyexchwnage.domain.Repository
 
 class GetCurrencyList(

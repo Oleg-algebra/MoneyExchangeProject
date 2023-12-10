@@ -9,10 +9,11 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyexchwnage.R
-import com.example.moneyexchwnage.domain.Currency
+import com.example.moneyexchwnage.domain.TestCurrency
 import com.example.moneyexchwnage.presentation.CurrencyDiffUtilCallbackAsync
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import androidx.recyclerview.widget.ListAdapter
+import com.example.moneyexchwnage.domain.Currency
 
 class CurrencyAdapter
     : ListAdapter<Currency,
