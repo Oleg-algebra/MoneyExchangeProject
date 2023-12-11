@@ -1,16 +1,15 @@
 package com.example.moneyexchwnage.presentation
 
 import androidx.recyclerview.widget.DiffUtil
-import com.example.moneyexchwnage.domain.Currency
-import com.example.moneyexchwnage.domain.TestCurrency
+import com.example.moneyexchwnage.data.network.CoinName
 
 class CurrencyDiffUtilCallbackAsync
-    :DiffUtil.ItemCallback<Currency>(){
-    override fun areItemsTheSame(oldItem: Currency, newItem: Currency): Boolean {
-        return oldItem.id == newItem.id
+    :DiffUtil.ItemCallback<CoinName>(){
+    override fun areItemsTheSame(oldItem: CoinName, newItem: CoinName): Boolean {
+        return true  //Fixme
     }
 
-    override fun areContentsTheSame(oldItem: Currency, newItem: Currency): Boolean {
+    override fun areContentsTheSame(oldItem: CoinName, newItem: CoinName): Boolean {
         return oldItem == newItem
     }
 }

@@ -1,11 +1,10 @@
 package com.example.moneyexchwnage.domain.usecases
 
-import com.example.moneyexchwnage.domain.Currency
-import com.example.moneyexchwnage.domain.TestCurrency
+import com.example.moneyexchwnage.data.network.CoinName
 import com.example.moneyexchwnage.domain.Repository
 
 class GetCurrency(
     private val repository: Repository
 ) {
-    fun getCurrency(id: Long): Currency =  repository.getCurrency(id)
+    fun getCurrency(id: Long): CoinName =  repository.getCurrency(id)
 }

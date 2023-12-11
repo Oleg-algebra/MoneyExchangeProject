@@ -2,71 +2,35 @@ package com.example.moneyexchwnage.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.moneyexchwnage.domain.Currency
+import com.example.moneyexchwnage.data.network.CoinName
+import com.example.moneyexchwnage.data.network.RequestDtoObject
+import com.example.moneyexchwnage.data.network.RetrofitCurrency
 import com.example.moneyexchwnage.domain.Repository
 
 object RepositoryImpl: Repository {
     private var currencyID = 0L
-    val currenciesList = mutableListOf<Currency>()
-    val liveData = MutableLiveData<List<Currency>>()
+    val currenciesList = mutableListOf<CoinName>()
+    val liveData = MutableLiveData<List<CoinName>>()
+
 
     init {
-        currenciesList.add(Currency(
-            "USD",
-            1.0,
-            id = ++currencyID
-        ))
-        currenciesList.add(
-            Currency(
 
-                "EUR",
-                1.0,
-                id = ++currencyID
-            )
-        )
-        currenciesList.add(
-            Currency(
-                "UAH",
-                1.0,
-                id = ++currencyID
-            )
-        )
-
-        currenciesList.add(
-            Currency(
-                "CAD",
-                1.0,
-                id = ++currencyID
-            )
-        )
-        currenciesList.add(
-            Currency(
-                "FRH",
-                1.0,
-                id = ++currencyID
-            )
-        )
     }
 
-    override fun addCurrency(currency: Currency) {
-        currenciesList.add(currency)
-        update()
-    }
-
-    override fun removeCurrency(currency: Currency) {
-        currenciesList.remove(currency)
-        update()
-    }
-
-    override fun getCurrencyList(): LiveData<List<Currency>> {
+    override fun getCurrencyList(): LiveData<List<CoinName>> {
         return liveData.apply {
             update()
         }
     }
 
-    override fun getCurrency(id: Long): Currency {
-        return currenciesList.find { it.id == id } ?:
-        throw RuntimeException("Currency with id $id not found")
+    override fun getCurrency(id: Long): CoinName {
+        return CoinName()           //FIXME: fix needed
+//        return currenciesList.find { it.id == id } ?:
+//        throw RuntimeException("Currency with id $id not found")
+    }
+
+    override fun loadData(){
+        //Todo: implement
     }
 
     fun update(){

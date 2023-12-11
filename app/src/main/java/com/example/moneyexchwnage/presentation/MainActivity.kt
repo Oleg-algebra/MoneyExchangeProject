@@ -6,12 +6,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.activitieslifecycle.RetrofitCurrency
+import com.example.moneyexchwnage.data.network.RequestDtoObject
+import com.example.moneyexchwnage.data.network.RetrofitCurrency
 import com.example.moneyexchwnage.R
-import com.example.moneyexchwnage.domain.TestCurrency
 import com.example.shop.presentation.CurrencyAdapter
-import retrofit2.Callback
 import retrofit2.Call
+import retrofit2.Callback
 import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var textView: TextView
 
     private lateinit var button: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -33,22 +34,29 @@ class MainActivity : AppCompatActivity() {
         
         button = findViewById(R.id.button)
         textView = findViewById(R.id.textView)
-        val key = "data/price?fsym=ETH&tsyms=BTC,USD,EUR"
+        val key = "dd45fcdbbfa53e9a17e9405fc88cb11dd3ccc2c69a772b9fb4ede412249afab1"
         button.setOnClickListener {
             Log.d(TAG, "button pressed ")
-            retrofitCurrency?.get(key, object : Callback<TestCurrency> {
-                override fun onResponse(call: Call<TestCurrency>, response: Response<TestCurrency>) {
+            retrofitCurrency?.get(key, object : Callback<RequestDtoObject>{
+                override fun onResponse(
+                    call: Call<RequestDtoObject>,
+                    response: Response<RequestDtoObject>
+                ) {
                     Log.d(TAG, "onResponse: OK")
                     val body = response.body()
                     Log.d(TAG, "response: $response")
-                    textView.text = body.toString()
+//                    textView.text = body.toString()
+                    Log.d(TAG, "result: ${body?.data?.get(0)?.raw?.coinDetailedInfo?.fromsymbol} ")
                 }
 
-                override fun onFailure(call: Call<TestCurrency>, t: Throwable) {
+                override fun onFailure(call: Call<RequestDtoObject>, t: Throwable) {
                     Log.e(TAG, "Retrofit: $t")
+
                 }
 
             })
+
+
         }
 
 //        recyclerView = findViewById(R.id.currency_recycleView)
@@ -79,11 +87,14 @@ class MainActivity : AppCompatActivity() {
         Log.d(TAG, "onStart: create retrofit")
         val baseUrl = "https://min-api.cryptocompare.com/"
         retrofitCurrency = RetrofitCurrency(baseUrl)
+
+
     }
 
     override fun onStop() {
         super.onStop()
         retrofitCurrency = null
+
     }
     
 

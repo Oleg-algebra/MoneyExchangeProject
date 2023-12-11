@@ -9,14 +9,13 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyexchwnage.R
-import com.example.moneyexchwnage.domain.TestCurrency
 import com.example.moneyexchwnage.presentation.CurrencyDiffUtilCallbackAsync
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import androidx.recyclerview.widget.ListAdapter
-import com.example.moneyexchwnage.domain.Currency
+import com.example.moneyexchwnage.data.network.CoinName
 
 class CurrencyAdapter
-    : ListAdapter<Currency,
+    : ListAdapter<CoinName,
         CurrencyAdapter.ShopItemViewHolder>(CurrencyDiffUtilCallbackAsync()){
 
 //    var currencyList = listOf<Currency>()
@@ -43,22 +42,22 @@ class CurrencyAdapter
 
 
 
-    var clickListener: ((view: View, item: Currency)->Unit  )? = null
+    var clickListener: ((view: View, item: CoinName)->Unit  )? = null
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: ")
-        val currency = getItem(position)
-        with(holder){
-            name.text = "${currency.cryptoCurrency}"
-            rate.text = currency.rate.toString()
-
-            cardView.setOnClickListener {
-                clickListener?.invoke(cardView, currency)
-            }
-
-        }
+        val currency = getItem(position)    //FIXME
+//        with(holder){
+//            name.text = "${currency.cryptoCurrency}"
+//            rate.text = currency.rate.toString()
+//
+//            cardView.setOnClickListener {
+//                clickListener?.invoke(cardView, currency)
+//            }
+//
+//        }
     }
 
-    var swipeListener: ((item: Currency) -> Unit)? = null
+    var swipeListener: ((item: CoinName) -> Unit)? = null
     var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
         ItemTouchHelper.SimpleCallback(
             0,
