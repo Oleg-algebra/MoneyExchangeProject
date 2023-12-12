@@ -50,7 +50,7 @@ data class CoinDetailedInfo(
 
     @SerializedName("LASTUPDATE")
     @Expose
-    var lastupdate: Int? = null,
+    var lastupdate: Long? = null,
 
 //    @SerializedName("LASTVOLUME")
 //    @Expose

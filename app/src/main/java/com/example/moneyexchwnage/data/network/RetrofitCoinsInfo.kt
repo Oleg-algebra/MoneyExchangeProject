@@ -7,11 +7,11 @@ import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitCurrency(baseUrl: String) {
+class RetrofitCoinsInfo(baseUrl: String) {
 
 
     private val retrofit: Retrofit
-    private val service: CurrencyService
+    private val service: ApiService
 
     init {
         Log.d(TAG, "RetrofitCurrency: init")
@@ -20,14 +20,12 @@ class RetrofitCurrency(baseUrl: String) {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        service = retrofit.create(CurrencyService::class.java)
+        service = retrofit.create(ApiService::class.java)
 
     }
 
-    fun get(key: String, callback: Callback<RequestDtoObject>) {
-        Log.d(TAG, "RetrofitCurrency get: get data")
-        val call: Call<RequestDtoObject> = service.getCurrency()
-        Log.d(TAG, "call: $call")
+    fun get(key: String, callback: Callback<DataDtoObject>) {
+        val call: Call<DataDtoObject> = service.getCurrency(apiKey = key)
         call.enqueue(callback)
     }
 

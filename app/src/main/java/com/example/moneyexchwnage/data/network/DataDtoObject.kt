@@ -3,7 +3,7 @@ package com.example.moneyexchwnage.data.network
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class RequestDtoObject(
+data class DataDtoObject(
 //    @SerializedName("Message")
 //    @Expose
 //    var message: String? = null,
