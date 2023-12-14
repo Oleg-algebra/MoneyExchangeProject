@@ -12,7 +12,7 @@ import kotlinx.coroutines.delay
 import kotlin.coroutines.coroutineContext
 
 object RepositoryImpl: Repository {
-    val currenciesList = mutableListOf<CoinInfo>()
+    var currenciesList = mutableListOf<CoinInfo>()
     val liveData = MutableLiveData<List<CoinInfo>>()
     val baseURL = "https://min-api.cryptocompare.com/"
     val key = "dd45fcdbbfa53e9a17e9405fc88cb11dd3ccc2c69a772b9fb4ede412249afab1"
@@ -27,20 +27,20 @@ object RepositoryImpl: Repository {
 
     override fun getCurrency(id: Long): CoinInfo {
         return CoinInfo()           //FIXME: fix needed
-//        return currenciesList.find { it.id == id } ?:
-//        throw RuntimeException("Currency with id $id not found")
+
     }
 
     override suspend fun loadData(){
-        val dataDtoObject = apiService.getCurrency(apiKey = key, limit = 50)
-
+        val dataDtoObject = apiService.getCurrency(apiKey = key, limit = 10)
+        val newList = mutableListOf<CoinInfo>()
         for(coinDto in dataDtoObject.data?: mutableListOf()){
             val coinInfo = mapper.mapDataDtoToCoin(coinDto)
-            currenciesList.add(coinInfo)
+            newList.add(coinInfo)
         }
+        currenciesList = newList
         update()
-        delay(10000)
-        Log.d(TAG, "repoImpl loadData: finished")
+        delay(1000*120)
+
     }
 
     override fun removeCoin(coinInfo: CoinInfo) {
@@ -50,6 +50,7 @@ object RepositoryImpl: Repository {
 
     fun update(){
         liveData.value = currenciesList.toList()
+        Log.d(TAG, "update: list length ${currenciesList.size}")
     }
 
 

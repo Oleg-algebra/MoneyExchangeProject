@@ -35,8 +35,10 @@ class MainViewModel: ViewModel() {
     }
     fun loadData(){
         viewModelScope.launch {
-            Log.d(TAG, "viewModel loadData: ")
-            loadDataUseCase()
+            while(true) {   // FIXME: need some fixes
+                Log.d(TAG, "viewModel loadData: ")
+                loadDataUseCase()
+            }
         }
     }
 

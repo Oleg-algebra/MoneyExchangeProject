@@ -20,11 +20,6 @@ class CoinAdapter
     : ListAdapter<CoinInfo,
         CoinAdapter.ShopItemViewHolder>(CurrencyDiffUtilCallbackAsync()){
 
-//    var currencyList = listOf<Currency>()
-//        set(value) {
-//            field = value
-////            notifyDataSetChanged()  // FIXME:
-//        }
 
     class ShopItemViewHolder(view: View):
         RecyclerView.ViewHolder(view) {
@@ -32,10 +27,11 @@ class CoinAdapter
         val rate: TextView = view.findViewById(R.id.rate)
         val cardView: CardView = view.findViewById(R.id.currency_card)
         val coinlogo: ImageView = view.findViewById(R.id.coinLogo)
+        val timeUpdate: TextView = view.findViewById(R.id.updateTime)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-        Log.d(TAG, "onCreateViewHolder: ")
+//        Log.d(TAG, "onCreateViewHolder: ")
         val view: View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.coin_layout, parent, false)
@@ -47,13 +43,14 @@ class CoinAdapter
 
     var clickListener: ((view: View, item: CoinInfo)->Unit  )? = null
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
-        Log.d(TAG, "onBindViewHolder: ")
-        val coin = getItem(position)    //FIXME
+
+        val coin = getItem(position)
         with(holder){
             name.text = coin.coinName
             rate.text = coin.coinPrice.toString()
             Picasso.get().load(coin.imageUrl).into(coinlogo)
-
+//            Log.d(TAG, "onBindViewHolder: ${coin.lastUpdate}")
+            timeUpdate.text = String.format("Last update: %s",coin.lastUpdate)
             cardView.setOnClickListener {
                 clickListener?.invoke(cardView, coin)
             }

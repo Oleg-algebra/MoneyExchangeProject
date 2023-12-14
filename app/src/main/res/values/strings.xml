@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MoneyExchwnage</string>
     <string name="base_currency">USD</string>
+    <string name="last_update_template">Last update: %s</string>
 </resources>

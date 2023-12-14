@@ -21,10 +21,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CoinAdapter
 
-    private lateinit var textView: TextView
-
-    private lateinit var button: Button
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
             adapter.submitList(it)
-            Log.d(TAG, "$it ")
+            Log.d(TAG, "mainActivity coins: $it ")
         }
 
 
