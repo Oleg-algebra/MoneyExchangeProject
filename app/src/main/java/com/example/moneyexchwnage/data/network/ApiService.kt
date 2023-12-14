@@ -7,11 +7,11 @@ import retrofit2.http.Query
 
 interface ApiService {
     @GET("data/top/totalvolfull")
-    fun getCurrency(
+    suspend fun getCurrency(
         @Query(QUERY_PARAM_API_KEY) apiKey: String = "",
         @Query(QUERY_PARAM_LIMIT) limit: Int = 10,
         @Query(QUERY_PARAM_TO_SYMBOL) tSym: String = CURRENCY
-    ): Call<DataDtoObject>
+    ): DataDtoObject
 
 
     companion object {

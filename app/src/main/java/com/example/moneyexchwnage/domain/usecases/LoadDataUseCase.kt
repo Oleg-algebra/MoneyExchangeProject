@@ -6,7 +6,5 @@ import com.example.moneyexchwnage.domain.Repository
 class LoadDataUseCase(
     private val repository: Repository
 ) {
-    fun loadData(){
-        repository.loadData()
-    }
+    operator suspend fun invoke() = repository.loadData()
 }

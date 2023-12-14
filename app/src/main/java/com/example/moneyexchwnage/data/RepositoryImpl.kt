@@ -3,25 +3,21 @@ package com.example.moneyexchwnage.data
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.moneyexchwnage.data.network.CoinName
-import com.example.moneyexchwnage.data.network.DataDtoObject
-import com.example.moneyexchwnage.data.network.RetrofitCoinsInfo
-import com.example.moneyexchwnage.data.workers.Worker
+import com.example.moneyexchwnage.data.mapper.Mapper
+import com.example.moneyexchwnage.data.network.ApiFactory
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.Repository
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import kotlinx.coroutines.delay
+import kotlin.coroutines.coroutineContext
 
 object RepositoryImpl: Repository {
-    private var currencyID = 0L
     val currenciesList = mutableListOf<CoinInfo>()
     val liveData = MutableLiveData<List<CoinInfo>>()
-
-
-
-    init {
-
-    }
+    val baseURL = "https://min-api.cryptocompare.com/"
+    val key = "dd45fcdbbfa53e9a17e9405fc88cb11dd3ccc2c69a772b9fb4ede412249afab1"
+    val apiService = ApiFactory(baseURL).service
+    val mapper = Mapper()
 
     override fun getCurrencyList(): LiveData<List<CoinInfo>> {
         return liveData.apply {
@@ -35,9 +31,21 @@ object RepositoryImpl: Repository {
 //        throw RuntimeException("Currency with id $id not found")
     }
 
-    override fun loadData(){
-        liveData.value = Worker.getData()
-        Log.d(TAG, "loadData: finished")
+    override suspend fun loadData(){
+        val dataDtoObject = apiService.getCurrency(apiKey = key, limit = 50)
+
+        for(coinDto in dataDtoObject.data?: mutableListOf()){
+            val coinInfo = mapper.mapDataDtoToCoin(coinDto)
+            currenciesList.add(coinInfo)
+        }
+        update()
+        delay(10000)
+        Log.d(TAG, "repoImpl loadData: finished")
+    }
+
+    override fun removeCoin(coinInfo: CoinInfo) {
+        currenciesList.remove(coinInfo)
+        update()
     }
 
     fun update(){

@@ -17,7 +17,7 @@ class Mapper {
             lastUpdate = details?.lastupdate ?: 0L,
             high24hour = details?.high24hour ?: 0.0,
             low24hour = details?.low24hour ?: 0.0,
-            imageUrl = BASE_IMAGE_URL + details?.imageurl
+            imageUrl = BASE_IMAGE_URL + (details?.imageurl ?: coinDto.coinName?.imageUrl)
       )
     }
 

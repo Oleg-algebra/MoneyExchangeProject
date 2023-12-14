@@ -20,9 +20,9 @@ data class CoinName (
 //    @Expose
 //    var internal: String? = null
 
-//    @SerializedName("ImageUrl")
-//    @Expose
-//    var imageUrl: String? = null,
+    @SerializedName("ImageUrl")
+    @Expose
+    var imageUrl: String? = null,
 //
 //    @SerializedName("Url")
 //    @Expose

@@ -8,6 +8,7 @@ interface Repository {
 
     fun getCurrencyList(): LiveData<List<CoinInfo>>
     fun getCurrency(id: Long): CoinInfo
-    fun loadData()
+    suspend fun loadData()
+    fun removeCoin(coinInfo: CoinInfo)
 
 }

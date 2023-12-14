@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -12,11 +13,12 @@ import com.example.moneyexchwnage.R
 import com.example.moneyexchwnage.presentation.CurrencyDiffUtilCallbackAsync
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import androidx.recyclerview.widget.ListAdapter
-import com.example.moneyexchwnage.data.network.CoinName
+import com.example.moneyexchwnage.domain.CoinInfo
+import com.squareup.picasso.Picasso
 
-class CurrencyAdapter
-    : ListAdapter<CoinName,
-        CurrencyAdapter.ShopItemViewHolder>(CurrencyDiffUtilCallbackAsync()){
+class CoinAdapter
+    : ListAdapter<CoinInfo,
+        CoinAdapter.ShopItemViewHolder>(CurrencyDiffUtilCallbackAsync()){
 
 //    var currencyList = listOf<Currency>()
 //        set(value) {
@@ -29,35 +31,37 @@ class CurrencyAdapter
         val name: TextView = view.findViewById(R.id.currencyName)
         val rate: TextView = view.findViewById(R.id.rate)
         val cardView: CardView = view.findViewById(R.id.currency_card)
+        val coinlogo: ImageView = view.findViewById(R.id.coinLogo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
         Log.d(TAG, "onCreateViewHolder: ")
         val view: View = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.currency_layout, parent, false)
+            .inflate(R.layout.coin_layout, parent, false)
 
         return ShopItemViewHolder(view)
     }
 
 
 
-    var clickListener: ((view: View, item: CoinName)->Unit  )? = null
+    var clickListener: ((view: View, item: CoinInfo)->Unit  )? = null
     override fun onBindViewHolder(holder: ShopItemViewHolder, position: Int) {
         Log.d(TAG, "onBindViewHolder: ")
-        val currency = getItem(position)    //FIXME
-//        with(holder){
-//            name.text = "${currency.cryptoCurrency}"
-//            rate.text = currency.rate.toString()
-//
-//            cardView.setOnClickListener {
-//                clickListener?.invoke(cardView, currency)
-//            }
-//
-//        }
+        val coin = getItem(position)    //FIXME
+        with(holder){
+            name.text = coin.coinName
+            rate.text = coin.coinPrice.toString()
+            Picasso.get().load(coin.imageUrl).into(coinlogo)
+
+            cardView.setOnClickListener {
+                clickListener?.invoke(cardView, coin)
+            }
+
+        }
     }
 
-    var swipeListener: ((item: CoinName) -> Unit)? = null
+    var swipeListener: ((item: CoinInfo) -> Unit)? = null
     var simpleItemTouchCallback: ItemTouchHelper.SimpleCallback = object :
         ItemTouchHelper.SimpleCallback(
             0,
@@ -74,8 +78,8 @@ class CurrencyAdapter
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, swipeDir: Int) {
             val position = viewHolder.adapterPosition
-            val shopItem = getItem(position)
-            swipeListener?.invoke(shopItem)
+            val coinInfo = getItem(position)
+            swipeListener?.invoke(coinInfo)
         }
     }
     

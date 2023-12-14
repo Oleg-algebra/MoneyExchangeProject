@@ -25,7 +25,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/coinLogo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 app:layout_constraintStart_toStartOf="parent"
