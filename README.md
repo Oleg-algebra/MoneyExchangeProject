@@ -1,1 +1,1 @@
-# Money Exchange project
+# Crypto app project
