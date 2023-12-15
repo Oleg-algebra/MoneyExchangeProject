@@ -39,7 +39,7 @@ object RepositoryImpl: Repository {
         }
         currenciesList = newList
         update()
-        delay(1000*120)
+        delay(1000*12)
 
     }
 
