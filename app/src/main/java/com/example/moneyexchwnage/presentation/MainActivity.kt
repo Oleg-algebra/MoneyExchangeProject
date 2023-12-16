@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
             adapter.submitList(it)
-            Log.d(TAG, "mainActivity coins: $it ")
+//            Log.d(TAG, "mainActivity coins: $it ")
         }
 
 
@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
 
         adapter.swipeListener = {
+
             viewModel.removeCoin(it)
         }
         val itemTouchHelper = ItemTouchHelper(adapter.simpleItemTouchCallback)

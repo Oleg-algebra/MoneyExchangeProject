@@ -16,13 +16,13 @@ class Mapper {
     fun mapDataDtoToEntity(coinDto: CoinDto): CoinEntity{
         val details = coinDto.raw?.coinDetailedInfo
         return CoinEntity(
-            coinName = details?.fromsymbol?: "null",
-            toCurrency = details?.tosymbol ?: "null",
+            coinName = details?.fromsymbol?: "",
+            toCurrency = details?.tosymbol ?: "",
             coinPrice = details?.price ?: -1.0,
             lastUpdate = convertTimestampToTime(details?.lastupdate),
             high24hour = details?.high24hour ?: -1.0,
             low24hour = details?.low24hour ?: -1.0,
-            imageUrl = details?.imageurl ?: "null"
+            imageUrl = "https://www.cryptocompare.com"  + (details?.imageurl ?: "null")
         )
     }
     private fun convertTimestampToTime(timestamp: Long?): String {
@@ -70,6 +70,6 @@ class Mapper {
 
 
     companion object{
-        val BASE_IMAGE_URL = "https://www.cryptocompare.com/"
+        val BASE_IMAGE_URL = "https://www.cryptocompare.com"
     }
 }

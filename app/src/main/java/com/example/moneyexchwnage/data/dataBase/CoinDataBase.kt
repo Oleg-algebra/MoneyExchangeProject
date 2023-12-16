@@ -28,7 +28,6 @@ public abstract class CoinDataBase : RoomDatabase() {
                         "word_database"
                     ).build()
                     INSTANCE = instance
-
                     // return instance
                     instance
                 }

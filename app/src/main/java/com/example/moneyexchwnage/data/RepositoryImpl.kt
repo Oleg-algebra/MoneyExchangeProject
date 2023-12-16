@@ -1,6 +1,7 @@
 package com.example.moneyexchwnage.data
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -10,6 +11,8 @@ import com.example.moneyexchwnage.data.network.ApiFactory
 import com.example.moneyexchwnage.data.network.CoinDto
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.Repository
+import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
+import kotlin.math.log
 
 class RepositoryImpl(context: Context): Repository {
     val liveData = MutableLiveData<List<CoinInfo>>()
@@ -23,8 +26,14 @@ class RepositoryImpl(context: Context): Repository {
         return MediatorLiveData<List<CoinInfo>>().apply {
             addSource(dao.getListEntities()){
                 value = mapper.mapEntitiesToCoinsInfos(it)
+//                Log.d(TAG, "getCurrencyList: $value")
             }
         }
+//        return liveData.apply {
+//            val entities = dao.getListEntities().value
+//            Log.d(TAG, "getCurrencyList: ${dao.getListEntities().value}")
+//            value = mapper.mapEntitiesToCoinsInfos(entities ?: mutableListOf())
+//        }
     }
 
     override suspend fun getCoin(coinName: String): CoinInfo {
@@ -33,12 +42,15 @@ class RepositoryImpl(context: Context): Repository {
     }
 
     override suspend fun loadData(){
+        dao.clearTable()
         val coinDtos = apiService
             .getCurrency(apiKey = key, limit = 10)
             .data
+//        Log.d(TAG, "loadData:$coinDtos ")
         for (coinDto in coinDtos ?: mutableListOf()){
             addCoin(coinDto)
         }
+        getCurrencyList()
 
 
 
@@ -46,7 +58,11 @@ class RepositoryImpl(context: Context): Repository {
     }
 
     override suspend fun addCoin(coinDto: CoinDto) {
-        dao.addCoinEntity(mapper.mapDataDtoToEntity(coinDto))
+        val entity = mapper.mapDataDtoToEntity(coinDto)
+//        Log.d(TAG, "addCoinEntity: ${entity.imageUrl}")
+        if (entity.coinName.isNotEmpty()) {
+            dao.addCoinEntity(entity)
+        }
     }
 
     override suspend fun removeCoin(coinInfo: CoinInfo) {

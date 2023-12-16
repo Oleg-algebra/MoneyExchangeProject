@@ -6,5 +6,5 @@ import com.example.moneyexchwnage.domain.Repository
 class RemoveCoinUseCase(
     val repository: Repository
 ) {
-    fun removeCoin(coinInfo: CoinInfo) = repository.removeCoin(coinInfo)
+    suspend fun removeCoin(coinInfo: CoinInfo) = repository.removeCoin(coinInfo)
 }
