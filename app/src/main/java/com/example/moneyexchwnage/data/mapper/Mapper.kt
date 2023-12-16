@@ -1,10 +1,8 @@
 package com.example.moneyexchwnage.data.mapper
 
-import android.util.Log
+import com.example.moneyexchwnage.data.dataBase.CoinEntity
 import com.example.moneyexchwnage.data.network.CoinDto
-import com.example.moneyexchwnage.data.network.DataDtoObject
 import com.example.moneyexchwnage.domain.CoinInfo
-import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -15,17 +13,17 @@ class Mapper {
 
 
 
-    fun mapDataDtoToCoin(coinDto: CoinDto): CoinInfo{
+    fun mapDataDtoToEntity(coinDto: CoinDto): CoinEntity{
         val details = coinDto.raw?.coinDetailedInfo
-        return CoinInfo(
-            coinName = coinDto.coinName?.fullName?:"",
-            toCurrency = details?.tosymbol ?: "",
-            coinPrice = details?.price ?: 0.0,
+        return CoinEntity(
+            coinName = details?.fromsymbol?: "null",
+            toCurrency = details?.tosymbol ?: "null",
+            coinPrice = details?.price ?: -1.0,
             lastUpdate = convertTimestampToTime(details?.lastupdate),
-            high24hour = details?.high24hour ?: 0.0,
-            low24hour = details?.low24hour ?: 0.0,
-            imageUrl = BASE_IMAGE_URL + (details?.imageurl ?: coinDto.coinName?.imageUrl)
-      )
+            high24hour = details?.high24hour ?: -1.0,
+            low24hour = details?.low24hour ?: -1.0,
+            imageUrl = details?.imageurl ?: "null"
+        )
     }
     private fun convertTimestampToTime(timestamp: Long?): String {
         if (timestamp == null) return ""
@@ -36,6 +34,40 @@ class Mapper {
         sdf.timeZone = TimeZone.getDefault()
         return sdf.format(date)
     }
+
+    fun dataDtosToEntities(dataDtos: List<CoinDto>): List<CoinEntity>{
+        return dataDtos.map { mapDataDtoToEntity(it) }
+    }
+    fun mapEntityToCoinInfo(coinEntity: CoinEntity): CoinInfo{
+        return CoinInfo(
+            coinName = coinEntity.coinName,
+            toCurrency = coinEntity.toCurrency,
+            coinPrice = coinEntity.coinPrice,
+            lastUpdate = coinEntity.lastUpdate,
+            high24hour = coinEntity.high24hour,
+            low24hour = coinEntity.low24hour,
+            imageUrl = coinEntity.imageUrl
+        )
+    }
+
+    fun mapCoinInfoToEntity(coinInfo: CoinInfo): CoinEntity{
+        return CoinEntity(
+            coinName   = coinInfo.coinName,
+            toCurrency = coinInfo.toCurrency,
+            coinPrice  = coinInfo.coinPrice,
+            lastUpdate = coinInfo.lastUpdate,
+            high24hour = coinInfo.high24hour,
+            low24hour  = coinInfo.low24hour,
+            imageUrl   = coinInfo.imageUrl
+        )
+    }
+
+
+
+    fun mapEntitiesToCoinsInfos(entities: List<CoinEntity>): List<CoinInfo>{
+        return entities.map { mapEntityToCoinInfo(it) }
+    }
+
 
     companion object{
         val BASE_IMAGE_URL = "https://www.cryptocompare.com/"
