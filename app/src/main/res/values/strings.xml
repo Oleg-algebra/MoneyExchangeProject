@@ -2,4 +2,8 @@
     <string name="app_name">MoneyExchwnage</string>
     <string name="base_currency">USD</string>
     <string name="last_update_template">Last update: %s</string>
+    <string name="time">time</string>
+    <string name="coinLogoImage">coinLogoImage</string>
+    <string name="rate">rate</string>
+    <string name="currencyName">CurrencyName</string>
 </resources>
