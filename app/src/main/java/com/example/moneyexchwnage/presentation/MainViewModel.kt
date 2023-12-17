@@ -34,14 +34,7 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         Log.e(TAG, "onCleared: ViewModel deleted", )
     }
     fun loadData(){
-        viewModelScope.launch {
-            while(true) {   // FIXME: need some fixes
-                Log.d(TAG, "viewModel loadData: ")
-                loadDataUseCase()
-                Log.d(TAG, "=============================")
-                delay(1000 * 10)
-            }
-        }
+        loadDataUseCase()
     }
 
     fun removeCoin(coinInfo: CoinInfo){

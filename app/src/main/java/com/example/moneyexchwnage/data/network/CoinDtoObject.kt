@@ -4,16 +4,10 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class CoinDto(
+data class CoinDtoObject(
     @SerializedName("CoinInfo")
     @Expose
     var coinName: CoinName? = null,
 
-    @SerializedName("RAW")
-    @Expose
-    var raw: Raw? = null,
-//    @SerializedName("USD")
-//    @Expose
-//    var coinDetailedInfo: CoinDetailedInfo? = null
 
     )

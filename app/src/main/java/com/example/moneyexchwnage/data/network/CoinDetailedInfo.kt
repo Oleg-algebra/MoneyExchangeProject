@@ -4,13 +4,13 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class CoinDetailedInfo(
-    @SerializedName("TYPE")
-    @Expose
-    var type: String? = null,
-//
+//    @SerializedName("TYPE")
+//    @Expose
+//    var type: String? = null,
+
 //    @SerializedName("MARKET")
 //    @Expose
-//    var market: String? = null
+//    var market: String? = null,
 
     @SerializedName("FROMSYMBOL")
     @Expose

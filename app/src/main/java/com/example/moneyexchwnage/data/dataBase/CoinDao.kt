@@ -13,7 +13,7 @@ interface CoinDao {
     @Query("SELECT * FROM top10_coins")
     fun getListEntities(): LiveData<List<CoinEntity>>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCoinEntity(coinEntity: CoinEntity)
 
     @Update(onConflict = OnConflictStrategy.IGNORE)

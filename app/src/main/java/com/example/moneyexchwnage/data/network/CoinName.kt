@@ -8,9 +8,9 @@ data class CoinName (
 //    @Expose
 //    var id: String? = null,
 //
-//    @SerializedName("Name")
-//    @Expose
-//    var name: String? = null,
+    @SerializedName("Name")
+    @Expose
+    var name: String? = null,
 
     @SerializedName("FullName")
     @Expose

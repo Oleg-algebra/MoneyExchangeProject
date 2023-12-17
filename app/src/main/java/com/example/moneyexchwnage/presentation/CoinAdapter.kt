@@ -49,7 +49,7 @@ class CoinAdapter
             name.text = coin.coinName
             rate.text = coin.coinPrice.toString()
             Picasso.get().load(coin.imageUrl).into(coinlogo)
-            Log.d(TAG, "onBindViewHolder: ${coin.imageUrl}")
+            Log.d(TAG, "onBindViewHolder: ${coin.coinName}")
             timeUpdate.text = String.format("Last update: %s",coin.lastUpdate)
             cardView.setOnClickListener {
                 clickListener?.invoke(cardView, coin)
