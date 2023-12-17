@@ -1,10 +1,9 @@
 package com.example.moneyexchwnage.data.mapper
 
 import com.example.moneyexchwnage.data.dataBase.CoinEntity
-import com.example.moneyexchwnage.data.network.CoinDetailedInfo
-import com.example.moneyexchwnage.data.network.CoinDtoObject
-import com.example.moneyexchwnage.data.network.CoinInfoJsonContainerDto
-import com.example.moneyexchwnage.data.network.CoinNamesDto
+import com.example.moneyexchwnage.data.network.model.CoinDetailedInfo
+import com.example.moneyexchwnage.data.network.model.CoinInfoJsonContainerDto
+import com.example.moneyexchwnage.data.network.model.CoinNamesDto
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.google.gson.Gson
 import java.sql.Timestamp
@@ -74,17 +73,6 @@ class Mapper {
         )
     }
 
-    fun mapCoinInfoToEntity(coinInfo: CoinInfo): CoinEntity{
-        return CoinEntity(
-            coinName   = coinInfo.coinName,
-            toCurrency = coinInfo.toCurrency,
-            coinPrice  = coinInfo.coinPrice,
-            lastUpdate = coinInfo.lastUpdate,
-            high24hour = coinInfo.high24hour,
-            low24hour  = coinInfo.low24hour,
-            imageUrl   = coinInfo.imageUrl
-        )
-    }
 
 
 

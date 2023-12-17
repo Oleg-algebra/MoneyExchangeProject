@@ -1,5 +1,7 @@
 package com.example.moneyexchwnage.data.network
 
+import com.example.moneyexchwnage.data.network.model.CoinInfoJsonContainerDto
+import com.example.moneyexchwnage.data.network.model.CoinNamesDto
 import retrofit2.http.GET
 import retrofit2.http.Query
 

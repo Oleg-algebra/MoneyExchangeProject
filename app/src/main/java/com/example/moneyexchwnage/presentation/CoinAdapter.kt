@@ -1,4 +1,4 @@
-package com.example.shop.presentation
+package com.example.moneyexchwnage.presentation
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -10,7 +10,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyexchwnage.R
-import com.example.moneyexchwnage.presentation.CurrencyDiffUtilCallbackAsync
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import androidx.recyclerview.widget.ListAdapter
 import com.example.moneyexchwnage.domain.CoinInfo
@@ -31,7 +30,6 @@ class CoinAdapter
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ShopItemViewHolder {
-//        Log.d(TAG, "onCreateViewHolder: ")
         val view: View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.coin_layout, parent, false)
@@ -46,10 +44,9 @@ class CoinAdapter
 
         val coin = getItem(position)
         with(holder){
-            name.text = coin.coinName
+            "${coin.coinName} / ${coin.toCurrency}".also { name.text = it }
             rate.text = coin.coinPrice.toString()
             Picasso.get().load(coin.imageUrl).into(coinlogo)
-            Log.d(TAG, "onBindViewHolder: ${coin.coinName}")
             timeUpdate.text = String.format("Last update: %s",coin.lastUpdate)
             cardView.setOnClickListener {
                 clickListener?.invoke(cardView, coin)

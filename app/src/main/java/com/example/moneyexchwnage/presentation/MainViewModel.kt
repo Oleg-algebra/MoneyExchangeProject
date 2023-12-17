@@ -4,16 +4,13 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.moneyexchwnage.data.RepositoryImpl
-import com.example.moneyexchwnage.data.network.CoinName
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.usecases.GetCoinListUseCase
 import com.example.moneyexchwnage.domain.usecases.LoadDataUseCase
 import com.example.moneyexchwnage.domain.usecases.RemoveCoinUseCase
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {

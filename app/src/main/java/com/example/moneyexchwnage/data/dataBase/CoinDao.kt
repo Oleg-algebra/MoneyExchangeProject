@@ -22,5 +22,8 @@ interface CoinDao {
     @Query("DELETE FROM top10_coins")
     suspend fun clearTable()
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertPriceList(priceList: List<CoinEntity>)
+
 
 }

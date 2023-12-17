@@ -2,17 +2,13 @@ package com.example.moneyexchwnage.presentation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyexchwnage.R
 import com.example.moneyexchwnage.domain.CoinInfo
-import com.example.shop.presentation.CoinAdapter
 
 class MainActivity : AppCompatActivity() {
 
