@@ -1,6 +1,7 @@
 package com.example.moneyexchwnage.data
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,6 +14,7 @@ import com.example.moneyexchwnage.data.network.model.CoinDetailedInfo
 import com.example.moneyexchwnage.data.workers.RefreshDataWorker
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.Repository
+import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import java.lang.RuntimeException
 
 class RepositoryImpl(val application: Application): Repository {
@@ -30,15 +32,18 @@ class RepositoryImpl(val application: Application): Repository {
 
     }
 
-    override suspend fun getCoin(coinName: String): CoinInfo {
-        return liveData.value
-            ?.find { it.coinName == coinName }
-            ?: throw RuntimeException("Coin $coinName not found.")
+    override fun getCoin(coinName: String): LiveData<CoinInfo> {
+        return MediatorLiveData<CoinInfo>().apply {
+            addSource(dao.getEntity(coinName)){
+                Log.d(TAG, "getCoin live data: $it")
+                value = mapper.mapEntityToCoinInfo(it)
+            }
+        }
 
     }
 
     override fun loadData(){
-     val workManager = WorkManager.getInstance(application)
+        val workManager = WorkManager.getInstance(application)
         workManager.enqueueUniqueWork(
             RefreshDataWorker.NAME,
             ExistingWorkPolicy.REPLACE,

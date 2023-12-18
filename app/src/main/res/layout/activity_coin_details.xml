@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.CoinDetailsActivity">
+<!--    TODO: need improvement-->
+    <TextView
+        android:id="@+id/coinNameDetailed"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="150dp"
+        android:gravity="center"
+        android:text="coin"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/coinPriceDetailed"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/coinPriceDetailed"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="coinPrice"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/min24H"
+        app:layout_constraintTop_toBottomOf="@+id/coinNameDetailed"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/min24H"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="min24Hour"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/max24H"
+        app:layout_constraintTop_toBottomOf="@+id/coinPriceDetailed"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/max24H"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="max24Hour"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/lastUpdateDetailed"
+        app:layout_constraintTop_toBottomOf="@+id/min24H"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <TextView
+        android:id="@+id/lastUpdateDetailed"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp"
+        android:text="lastUpdateTime"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/max24H"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

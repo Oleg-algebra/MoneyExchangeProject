@@ -6,7 +6,7 @@ import com.example.moneyexchwnage.data.network.model.CoinDetailedInfo
 interface Repository {
 
     fun getCurrencyList(): LiveData<List<CoinInfo>>
-    suspend fun getCoin(coinName: String): CoinInfo
+   fun getCoin(coinName: String): LiveData<CoinInfo>
     fun loadData()
     suspend fun removeCoin(coinInfo: CoinInfo)
 }

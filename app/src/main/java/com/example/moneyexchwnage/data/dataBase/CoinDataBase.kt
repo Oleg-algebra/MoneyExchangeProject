@@ -6,7 +6,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 // Annotates class to be a Room Database with a table (entity) of the Word class
-@Database(entities = arrayOf(CoinEntity::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(CoinEntity::class),
+    version = 1, exportSchema = false,
+    )
 public abstract class CoinDataBase : RoomDatabase() {
 
     abstract fun coinDao(): CoinDao
@@ -25,7 +27,7 @@ public abstract class CoinDataBase : RoomDatabase() {
                     val instance = Room.databaseBuilder(
                         context.applicationContext,
                         CoinDataBase::class.java,
-                        "word_database"
+                        "coin_database"
                     ).build()
                     INSTANCE = instance
                     // return instance

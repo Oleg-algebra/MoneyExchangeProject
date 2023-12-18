@@ -10,8 +10,10 @@ import androidx.room.Update
 
 @Dao
 interface CoinDao {
-    @Query("SELECT * FROM top10_coins")
+    @Query("SELECT * FROM top_coins")
     fun getListEntities(): LiveData<List<CoinEntity>>
+    @Query("SELECT * FROM top_coins WHERE coin_name = :coin LIMIT 1 ")
+    fun getEntity(coin: String): LiveData<CoinEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun addCoinEntity(coinEntity: CoinEntity)
@@ -19,7 +21,7 @@ interface CoinDao {
     @Update(onConflict = OnConflictStrategy.IGNORE)
     suspend fun updateCoinEntity(coinEntity: CoinEntity)
 
-    @Query("DELETE FROM top10_coins")
+    @Query("DELETE FROM top_coins")
     suspend fun clearTable()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

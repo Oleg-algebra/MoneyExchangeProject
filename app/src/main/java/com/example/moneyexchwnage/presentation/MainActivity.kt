@@ -1,13 +1,16 @@
 package com.example.moneyexchwnage.presentation
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moneyexchwnage.R
+import com.example.moneyexchwnage.domain.CURRENCY_CODE
 import com.example.moneyexchwnage.domain.CoinInfo
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         viewModel.liveData.observe(this){
             adapter.submitList(it)
-//            Log.d(TAG, "mainActivity coins: $it ")
+            Log.d(TAG, "mainActivity coins: $it ")
         }
 
 
@@ -33,7 +36,7 @@ class MainActivity : AppCompatActivity() {
         adapter = CoinAdapter()
         recyclerView.adapter = adapter
         adapter.clickListener = { view: View, currency: CoinInfo->
-            Toast.makeText(this@MainActivity, currency.toString(), Toast.LENGTH_SHORT).show()
+            loadDetailActivity(currency.coinName)
         }
 
 
@@ -46,6 +49,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    fun loadDetailActivity(currencyName: String){
+        val intent = Intent(this,CoinDetailsActivity::class.java)
+        intent.putExtra(CURRENCY_CODE,currencyName)
+        startActivity(intent)
+    }
     override fun onStart() {
         super.onStart()
     }

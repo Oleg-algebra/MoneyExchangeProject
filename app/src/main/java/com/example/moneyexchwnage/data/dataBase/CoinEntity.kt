@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "top10_coins")
+@Entity(tableName = "top_coins")
 data class CoinEntity (
     @PrimaryKey(autoGenerate = false)
     @ColumnInfo(name = "coin_name")
