@@ -6,20 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import com.example.moneyexchwnage.R
 import com.example.moneyexchwnage.domain.CURRENCY_CODE
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.UNDEFINED_COIN
+import com.squareup.picasso.Picasso
 
 
 class CoinDetailsFragment : Fragment() {
-    private lateinit var coinNameTextView: TextView
-    private lateinit var coinPriceTextView: TextView
-    private lateinit var min24Hour: TextView
-    private lateinit var max24Hour: TextView
-    private lateinit var updateTime: TextView
+    private lateinit var coinLogo: ImageView
+    private lateinit var coinNameTV: TextView
+    private lateinit var baseCurrencyTV: TextView
+    private lateinit var coinPriceTV: TextView
+    private lateinit var min24HourTV: TextView
+    private lateinit var max24HourTV: TextView
+    private lateinit var updateTimeTV: TextView
 
     private lateinit var viewModel: CoinDetailViewModel
     var coinName: String = UNDEFINED_COIN
@@ -34,11 +38,13 @@ class CoinDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        coinNameTextView = view.findViewById(R.id.coinNameDetailed)
-        coinPriceTextView = view.findViewById(R.id.tvCoinPrice)
-        min24Hour = view.findViewById(R.id.min24H)
-        max24Hour = view.findViewById(R.id.max24H)
-        updateTime = view.findViewById(R.id.lastUpdateDetailed)
+        coinLogo = view.findViewById(R.id.coinLogoDetails)
+        coinNameTV = view.findViewById(R.id.tvCoinName)
+        baseCurrencyTV = view.findViewById(R.id.tvBaseCurrency)
+        coinPriceTV = view.findViewById(R.id.tvCoinPrice)
+        min24HourTV = view.findViewById(R.id.tvMin24h)
+        max24HourTV = view.findViewById(R.id.tvMax24h)
+        updateTimeTV = view.findViewById(R.id.tvLastUpdate)
     }
 
 
@@ -57,13 +63,14 @@ class CoinDetailsFragment : Fragment() {
 
         viewModel.liveData.observe(this){ coinInfo: CoinInfo ->
             Log.d(MainActivity.TAG, "live data detailed activity: $coinInfo")
-            "${coinInfo.coinName}/${coinInfo.toCurrency}".let {
-                    string: String -> coinNameTextView.text = string
-            }
-            "Coin price: ${coinInfo.coinPrice}".let { coinPriceTextView.text = it }
-            "min 24 hours: ${coinInfo.low24hour}".let { min24Hour.text = it }
-            "max 24 hours: ${coinInfo.high24hour}".let { max24Hour.text = it }
-            "Last update: ${coinInfo.lastUpdate}".let { updateTime.text = it}
+            Picasso.get().load(coinInfo.imageUrl).into(coinLogo)
+            coinNameTV.text = coinInfo.coinName
+            baseCurrencyTV.text = coinInfo.toCurrency
+            coinPriceTV.text = coinInfo.coinPrice.toString()
+            min24HourTV.text = coinInfo.low24hour.toString()
+            max24HourTV.text = coinInfo.high24hour.toString()
+            updateTimeTV.text = coinInfo.lastUpdate
+
         }
 
     }
