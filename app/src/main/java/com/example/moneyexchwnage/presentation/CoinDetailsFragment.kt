@@ -35,7 +35,7 @@ class CoinDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         coinNameTextView = view.findViewById(R.id.coinNameDetailed)
-        coinPriceTextView = view.findViewById(R.id.coinPriceDetailed)
+        coinPriceTextView = view.findViewById(R.id.tvCoinPrice)
         min24Hour = view.findViewById(R.id.min24H)
         max24Hour = view.findViewById(R.id.max24H)
         updateTime = view.findViewById(R.id.lastUpdateDetailed)
