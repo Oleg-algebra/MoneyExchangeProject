@@ -16,39 +16,20 @@ import kotlinx.coroutines.launch
 
 class CoinDetailsActivity : AppCompatActivity() {
 
-    private lateinit var coinNameTextView: TextView
-    private lateinit var coinPriceTextView: TextView
-    private lateinit var min24Hour: TextView
-    private lateinit var max24Hour: TextView
-    private lateinit var updateTime: TextView
 
-    private lateinit var viewModel: CoinDetailViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_coin_details)
-
-        coinNameTextView = findViewById(R.id.coinNameDetailed)
-        coinPriceTextView = findViewById(R.id.coinPriceDetailed)
-        min24Hour = findViewById(R.id.min24H)
-        max24Hour = findViewById(R.id.max24H)
-        updateTime = findViewById(R.id.lastUpdateDetailed)
-
-        viewModel = ViewModelProvider(this)[CoinDetailViewModel::class.java]
-        parseIntent()
-
-        viewModel.getCoin(coinName)
-
-        viewModel.liveData.observe(this){ coinInfo: CoinInfo ->
-            Log.d(TAG, "live data detailed activity: $coinInfo")
-            "${coinInfo.coinName}/${coinInfo.toCurrency}".let {
-                string: String -> coinNameTextView.text = string
-            }
-            "Coin price: ${coinInfo.coinPrice}".let { coinPriceTextView.text = it }
-            "min 24 hours: ${coinInfo.low24hour}".let { min24Hour.text = it }
-            "max 24 hours: ${coinInfo.high24hour}".let { max24Hour.text = it }
-            "Last update: ${coinInfo.lastUpdate}".let { updateTime.text = it}
+        if(savedInstanceState == null){
+            parseIntent()
         }
 
+    }
+
+    fun setupFragment(fragment: CoinDetailsFragment){
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.coinDetailsFragment,fragment)
+            .commit()
     }
     var coinName: String = UNDEFINED_COIN
     fun parseIntent(){
@@ -56,6 +37,7 @@ class CoinDetailsActivity : AppCompatActivity() {
         if (intent.hasExtra(CURRENCY_CODE)){
             coinName = intent.getStringExtra(CURRENCY_CODE) ?: UNDEFINED_COIN
             Log.d(TAG, "parseIntent: $coinName")
+            setupFragment(CoinDetailsFragment.newInstanceFragment(coinName))
         }
     }
 
