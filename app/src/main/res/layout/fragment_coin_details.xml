@@ -200,7 +200,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="30dp"
-                                android:text="@string/max_24_hour"
+                                android:text="@string/max_24_hours"
                                 android:textSize="18sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"

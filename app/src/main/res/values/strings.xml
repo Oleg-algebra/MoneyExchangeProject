@@ -15,8 +15,10 @@
     <string name="_20000">20000</string>
     <string name="min_24_hours">min 24 hours:</string>
     <string name="_1000">1000</string>
-    <string name="max_24_hour">max 24 hour:</string>
+    <string name="max_24_hours">max 24 hours:</string>
     <string name="_20123">20123</string>
     <string name="last_update">Last update:</string>
     <string name="_22_22_22">22:22:22</string>
+    <string name="portrait">portrait</string>
+    <string name="landscape">landscape</string>
 </resources>

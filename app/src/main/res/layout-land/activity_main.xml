@@ -6,20 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    android:tag="@string/portrait"
+    android:tag="@string/landscape"
     tools:context=".presentation.MainActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/currency_recycleView"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
             tools:listitem="@layout/coin_layout" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"
+            app:layout_constraintGuide_percent="0.5" />
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/coinDetailsFragment"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/currency_recycleView"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:context=".presentation.CoinDetailsActivity"
+            tools:layout="@layout/fragment_coin_details" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

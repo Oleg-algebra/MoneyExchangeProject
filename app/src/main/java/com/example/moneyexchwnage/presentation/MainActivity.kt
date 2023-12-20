@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CoinAdapter
+    private lateinit var constraintLayout: ConstraintLayout
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +32,16 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "mainActivity coins: $it ")
         }
 
-
+        constraintLayout = findViewById(R.id.constraintMain)
         recyclerView = findViewById(R.id.currency_recycleView)
         adapter = CoinAdapter()
         recyclerView.adapter = adapter
         adapter.clickListener = { view: View, currency: CoinInfo->
-            loadDetailActivity(currency.coinName)
+            if(constraintLayout.tag.toString() == getString(R.string.portrait)) {
+                launchDetailActivity(currency.coinName)
+            }else{
+                setupFragment(CoinDetailsFragment.newInstanceFragment(currency.coinName))
+            }
         }
 
 
@@ -49,7 +54,16 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun loadDetailActivity(currencyName: String){
+    fun setupFragment(fragment: CoinDetailsFragment){
+        supportFragmentManager.popBackStack()
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(R.id.coinDetailsFragment,fragment)
+            .commit()
+    }
+
+    private fun launchDetailActivity(currencyName: String){
         val intent = Intent(this,CoinDetailsActivity::class.java)
         intent.putExtra(CURRENCY_CODE,currencyName)
         startActivity(intent)

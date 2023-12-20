@@ -84,6 +84,7 @@ class CoinDetailsFragment : Fragment() {
         }
 
 
+
     }
 
 
