@@ -5,20 +5,21 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
-import com.example.moneyexchwnage.data.RepositoryImpl
+import com.example.moneyexchwnage.di.DaggerComponent
+import com.example.moneyexchwnage.di.DomainModule
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.usecases.GetCoinListUseCase
 import com.example.moneyexchwnage.domain.usecases.LoadDataUseCase
 import com.example.moneyexchwnage.domain.usecases.RemoveCoinUseCase
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
 
-    private val repo = RepositoryImpl(application)
-    private val getCoinListUseCase = GetCoinListUseCase(repo)
-    private val loadDataUseCase = LoadDataUseCase(repo)
-    private val removeCoinUseCase = RemoveCoinUseCase(repo)
+    @Inject lateinit var getCoinListUseCase : GetCoinListUseCase
+    @Inject lateinit var loadDataUseCase : LoadDataUseCase
+    @Inject lateinit var removeCoinUseCase : RemoveCoinUseCase
 
 
     val liveData: LiveData<List<CoinInfo>>
@@ -39,6 +40,12 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
 
     }
     init {
+        DaggerComponent
+            .builder()
+            .domainModule(DomainModule(application))
+//            .dataModule(DataModule(application))
+            .build()
+            .inject(this)
         loadData()
     }
 }

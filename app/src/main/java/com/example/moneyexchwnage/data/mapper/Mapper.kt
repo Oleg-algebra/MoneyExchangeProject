@@ -11,8 +11,9 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
 
-class Mapper {
+class Mapper @Inject constructor(){
     fun mapNamesListToString(listDto: CoinNamesDto): String {
         return listDto.data?.map {
             it.coinName?.name

@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase
 @Database(entities = arrayOf(CoinEntity::class),
     version = 1, exportSchema = false,
     )
-public abstract class CoinDataBase : RoomDatabase() {
+abstract class CoinDataBase : RoomDatabase() {
 
     abstract fun coinDao(): CoinDao
 

@@ -4,23 +4,22 @@ import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.work.ExistingWorkPolicy
 import androidx.work.WorkManager
-import com.example.moneyexchwnage.data.dataBase.CoinDataBase
+import com.example.moneyexchwnage.data.dataBase.CoinDao
 import com.example.moneyexchwnage.data.mapper.Mapper
-import com.example.moneyexchwnage.data.network.ApiFactory
-import com.example.moneyexchwnage.data.network.model.CoinDetailedInfo
 import com.example.moneyexchwnage.data.workers.RefreshDataWorker
 import com.example.moneyexchwnage.domain.CoinInfo
 import com.example.moneyexchwnage.domain.Repository
 import com.example.moneyexchwnage.presentation.MainActivity.Companion.TAG
-import java.lang.RuntimeException
+import javax.inject.Inject
 
-class RepositoryImpl(val application: Application): Repository {
-    val liveData = MutableLiveData<List<CoinInfo>>()
-    val mapper = Mapper()
-    private val dao = CoinDataBase.getDatabase(application).coinDao()
+class RepositoryImpl @Inject constructor(
+                    val application: Application,
+                    val mapper: Mapper,
+                    val dao : CoinDao
+): Repository {
+
 
     override fun getCurrencyList(): LiveData<List<CoinInfo>> {
         return MediatorLiveData<List<CoinInfo>>().apply {
